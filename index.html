@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>SHADOW STRIKE: ASSASSIN PROTOCOL</title>
+<style>
+*{box-sizing:border-box;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:#07060f;color:#fff;font-family:"Arial Black",Impact,system-ui,sans-serif}
+#c{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);touch-action:none;background:#000}
+.hide{display:none!important}
+.ov{position:fixed;inset:0;z-index:20;display:flex;overflow:auto}
+.ttl{font:italic 900 clamp(26px,6vw,52px)/1 Impact,"Arial Black",sans-serif;letter-spacing:3px;color:#ffd23a;text-shadow:3px 3px 0 #7a1a0a,0 0 18px #ff7a1a;margin:6px 0 0}
+.ttl b{color:#fff}.sub{letter-spacing:6px;color:#ff5a3a;font-size:11px;margin-bottom:6px}
+#mcol{width:min(540px,62%);padding:10px;display:flex;flex-direction:column;background:linear-gradient(90deg,#120804e6 70%,#0000)}
+#panel{flex:1;min-height:0;overflow:auto;background:#1a0d08cc;border:3px solid #fff;border-radius:10px;padding:8px;margin:6px 0}
+.row{display:flex;flex-wrap:wrap}
+.b{background:linear-gradient(#c96a1c,#8a3e0e);color:#fff;border:2px solid #fff;padding:8px 12px;margin:2px;border-radius:8px;font:900 13px "Arial Black",sans-serif;letter-spacing:1px;cursor:pointer;text-shadow:1px 1px 0 #000}
+.b.on{background:linear-gradient(#ffd23a,#e8901c);color:#2a1004;text-shadow:none}.b:disabled{opacity:.4}.b.w{display:block;width:100%;text-align:left;margin:3px 0}
+.big{font-size:22px;padding:10px 40px;background:linear-gradient(#5aff7a,#1aa84a);color:#04240e;text-shadow:none;margin-top:4px}
+.cc{display:flex;gap:10px}.cc img{height:min(34vh,230px);border-radius:8px;border:3px solid #fff;object-fit:cover}
+.bar{height:8px;background:#222;border-radius:4px;margin:2px 0 5px;overflow:hidden;border:1px solid #fff4}.bar i{display:block;height:100%;background:linear-gradient(90deg,#ffd23a,#ff5a3a)}
+small{color:#f3c9a0;font-family:Arial,sans-serif;font-weight:700}h2{margin:2px 0;font-style:italic}p{margin:4px 0;font:600 12px Arial,sans-serif}
+#hud,#touch{position:fixed;inset:0;pointer-events:none;z-index:10}
+.pn{position:absolute;display:flex;align-items:center;gap:6px;padding:4px 8px;border:3px solid #f5e6d0;border-radius:8px;background:linear-gradient(#b5601f,#6e3410);box-shadow:0 0 0 2px #3b1a08;font:italic 900 14px Impact,"Arial Black",sans-serif;text-shadow:1px 1px 0 #000}
+#pf{top:6px;left:6px}#pimg{width:50px;height:50px;border-radius:6px;object-fit:cover;border:2px solid #fff}
+#pname{color:#ffd23a;font-size:14px}#plv{display:block;font-size:10px;color:#fff}
+.hb{height:12px;width:130px;border:2px solid #fff;background:#3a0a0a;border-radius:3px;overflow:hidden}.hb i{display:block;height:100%;background:linear-gradient(#ff7a4a,#d4221a)}
+#arms{top:6px;left:210px;pointer-events:auto;gap:14px}#arms small{display:block;color:#fff;font-size:11px}#arms b{font-size:20px;color:#ffe9a0}
+#time{top:8px;left:420px;border:0;background:none;box-shadow:none;display:block;font-size:12px}#time b{font-size:16px;color:#ffd23a;display:block}
+#coin{top:8px;right:78px;border:0;background:none;box-shadow:none;font-size:22px}#coin i{display:inline-block;width:26px;height:26px;border-radius:50%;background:#ffc21a;border:3px solid #b87a08;margin-right:6px;vertical-align:middle}
+#pbtn{position:absolute;top:6px;right:8px;width:52px;height:46px;pointer-events:auto;text-align:center;line-height:40px;border:3px solid #fff;border-radius:8px;background:#000c;font-size:20px}
+#auto{position:absolute;top:62px;right:10px;width:54px;height:54px;border-radius:50%;border:3px solid #fff;background:#333c;pointer-events:auto;text-align:center;line-height:48px;font-size:11px}#auto.on{background:#2a9d4acc}
+#bossb{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:min(520px,70vw);display:flex;align-items:center;gap:8px;font:italic 900 16px Impact,sans-serif;color:#ffd23a;text-shadow:1px 1px 0 #000}
+#bossb .hb{flex:1;height:18px;width:auto}#bf{background:linear-gradient(#ff9a3a,#e8501a)}
+#obj{position:absolute;top:84px;left:10px;font:700 12px Arial,sans-serif;text-shadow:1px 1px 0 #000;color:#fff}
+#combo{position:absolute;left:3%;top:30%;text-align:center;color:#fff;font:italic 900 22px Impact,sans-serif;text-shadow:2px 2px 0 #c0189a;transform:rotate(-8deg);opacity:0}
+#combo b{display:block;font-size:92px;line-height:.9;-webkit-text-stroke:4px #000;paint-order:stroke fill}#combo.pop{animation:pop .5s forwards}
+@keyframes pop{0%{transform:rotate(-8deg) scale(1.8);opacity:1}30%{transform:rotate(-8deg) scale(1)}100%{transform:rotate(-8deg) scale(1);opacity:0}}
+#banner{position:fixed;left:0;right:0;top:26%;text-align:center;font:italic 900 clamp(24px,6vw,50px) Impact,sans-serif;color:#ffd23a;text-shadow:3px 3px 0 #7a1a0a;opacity:0;transition:opacity .3s;pointer-events:none;z-index:15}
+#tip{position:fixed;left:0;right:0;bottom:58px;text-align:center;font:700 12px Arial;color:#ffe9c0;text-shadow:1px 1px 0 #000;opacity:0;transition:opacity .3s;pointer-events:none;z-index:15}.on{opacity:1!important}
+#flash{position:fixed;inset:0;background:radial-gradient(#0000 45%,#f22);opacity:0;pointer-events:none;z-index:9}
+#joy{position:absolute;left:22px;bottom:22px;width:140px;height:140px;border-radius:50%;background:#0006;border:4px solid #fff7;pointer-events:auto;touch-action:none}
+#stick{position:absolute;left:42px;top:42px;width:56px;height:56px;border-radius:50%;background:radial-gradient(#ff8a4a,#a8300a);border:3px solid #fff}
+#touch button{position:absolute;pointer-events:auto;touch-action:none;border-radius:50%;border:4px solid #ffffffaa;background:radial-gradient(#5a2a14,#1a0a04);color:#ffd23a;font:900 12px Impact,sans-serif}
+#tf{right:20px;bottom:20px;width:96px;height:96px}#tj{right:128px;bottom:20px;width:84px;height:84px}#tb{right:24px;bottom:128px;width:62px;height:62px}#ts{right:100px;bottom:128px;width:62px;height:62px}#tr{right:174px;bottom:116px;width:50px;height:50px}
+#rot{position:fixed;inset:0;z-index:99;background:#07060f;display:none;align-items:center;justify-content:center;text-align:center;font-size:20px;padding:30px}
+@media(orientation:portrait){#rot{display:flex}}
+#pause,#result{justify-content:center;align-items:center;flex-direction:column;text-align:center;background:#07060fdd}
+.stars{font-size:46px;color:#ffd23a;margin:4px}.card{background:#1a0d08;border:3px solid #fff;border-radius:10px;padding:12px 18px;line-height:1.7;margin:8px;text-align:left;font:700 14px Arial,sans-serif}
+em{color:#5aff7a;font-style:normal;font-weight:900}
+</style></head><body>
+<canvas id="c"></canvas>
+<div id="menu" class="ov"><div id="mcol"><div class="ttl">SHADOW <b>STRIKE</b></div><div class="sub">ASSASSIN PROTOCOL</div>
+<div id="tabs" class="row"><button class="b" data-t="chars">CHARACTER</button><button class="b" data-t="missions">MISSIONS</button><button class="b" data-t="upg">ARSENAL</button><button class="b" data-t="set">SETTINGS</button></div>
+<div id="panel"></div><button id="play" class="b big">▶ PLAY</button></div></div>
+<div id="hud" class="hide">
+ <div id="pf" class="pn"><img id="pimg" alt=""><div><span id="pname"></span><span id="plv"></span><div class="hb"><i id="hpf"></i></div></div></div>
+ <div id="arms" class="pn"><div><small>ARMS</small><b id="ammo"></b></div><div><small>BOMB</small><b id="bomb"></b></div></div>
+ <div id="time" class="pn"><small>TIME</small><b id="tm"></b></div>
+ <div id="coin" class="pn"><i></i><b id="cn">0</b></div>
+ <div id="pbtn">II</div><div id="auto">AUTO</div><div id="obj"></div><div id="combo"></div>
+ <div id="bossb" class="hide"><span>BOSS</span><div class="hb"><i id="bf"></i></div></div>
+</div>
+<div id="touch" class="hide"><div id="joy"><div id="stick"></div></div><button id="tf">FIRE</button><button id="tj">JUMP</button><button id="tb">BOMB</button><button id="ts">SP</button><button id="tr">R</button></div>
+<div id="flash"></div><div id="banner"></div><div id="tip"></div>
+<div id="pause" class="ov hide"><div class="ttl">PAUSED</div><div class="row"><button class="b" data-a="resume">RESUME</button><button class="b" data-a="retry">RESTART</button><button class="b" data-a="menu">MENU</button></div></div>
+<div id="result" class="ov hide"></div>
+<div id="rot">📱↻<br>Rotate your phone to landscape</div>
+<script type="module" src="./src/main.js"></script>
+</body></html>
